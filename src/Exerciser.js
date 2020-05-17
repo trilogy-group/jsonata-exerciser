@@ -297,6 +297,10 @@ class Exerciser extends React.Component {
             this.timeboxExpression(expr, 1000, 500);
         }
 
+        if(!('data' in input)){
+            input = {'data': input}
+        }
+
         let pathresult = expr.evaluate(input);
         if (typeof pathresult === 'undefined') {
             pathresult = '** no match **';
