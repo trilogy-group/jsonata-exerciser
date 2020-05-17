@@ -5,7 +5,7 @@
 
     // Use 'appPort' to create a container with published ports. If the port isn't working, be sure
     // your server accepts connections from all interfaces (0.0.0.0 or '*'), not just localhost.
-    "forwardPorts": [3000],
+    "appPorts": [3002],
 
     // Comment out the next line to run as root instead.
     "remoteUser": "node",
@@ -21,7 +21,8 @@
 
     // Add the IDs of extensions you want installed when the container is created in the array below.
     "extensions": [
-		"dbaeumer.vscode-eslint",
+        "dbaeumer.vscode-eslint",
+        "msjsdiag.vscode-react-native",
         "msjsdiag.debugger-for-chrome",
         "eamodio.gitlens"
 	],
