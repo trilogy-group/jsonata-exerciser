@@ -298,6 +298,7 @@ class Exerciser extends React.Component {
         }
 
         if(!('data' in input)){
+            //  alert('Passthrough mode is active as your input JSON does not have data key at top level.\nWe will put input JSON under data key and then perform transformation.\nSo write transformation accordingly.')
             input = {'data': input}
         }
 
@@ -453,24 +454,40 @@ class Exerciser extends React.Component {
             </header>
 
             <SplitPane split="vertical" minSize={100} defaultSize={'50%'}>
-                <div className="pane">
+                <SplitPane split="horizontal" minSize={50} defaultSize={170}>
+                    <div className="pane">
+                        <MonacoEditor
+                        language="json"
+                        theme="jsonataTheme"
+                        value={this.state.json}
+                        options={options}
+                        onChange={this.onChangeData.bind(this)}
+                        editorDidMount={this.jsonEditorDidMount.bind(this)}
+                        />
+                        <div id="json-label" className="label">JSON</div>
+                        <img src={format} id="json-format" title="Format" onClick={this.format.bind(this)} alt={"Format"}/>
+                        <select id="sample-data" onChange={this.changeSample.bind(this)}>
+                            <option value="Invoice">Invoice</option>
+                            <option value="Address">Address</option>
+                            <option value="Schema">Schema</option>
+                            <option value="Library">Library</option>
+                        </select>
+                    </div>
                     <MonacoEditor
                       language="json"
                       theme="jsonataTheme"
-                      value={this.state.json}
-                      options={options}
-                      onChange={this.onChangeData.bind(this)}
-                      editorDidMount={this.jsonEditorDidMount.bind(this)}
+                      value={this.state.result}
+                      options={{
+                          lineNumbers: 'off',
+                          minimap: {enabled: false},
+                          automaticLayout: true,
+                          contextmenu: false,
+                          scrollBeyondLastLine: false,
+                          readOnly: false,
+                          extraEditorClassName: 'result-pane'
+                      }}
                     />
-                    <div id="json-label" className="label">JSON</div>
-                    <img src={format} id="json-format" title="Format" onClick={this.format.bind(this)} alt={"Format"}/>
-                    <select id="sample-data" onChange={this.changeSample.bind(this)}>
-                        <option value="Invoice">Invoice</option>
-                        <option value="Address">Address</option>
-                        <option value="Schema">Schema</option>
-                        <option value="Library">Library</option>
-                    </select>
-                </div>
+                </SplitPane>
                 <SplitPane split="horizontal" minSize={50} defaultSize={170}>
                     <div className="pane">
                         <MonacoEditor
